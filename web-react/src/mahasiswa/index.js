@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 export default () => {
-  const [data, setData] = useState([1, 2, 3, 4, 5, 6, 7, 7]);
+  const [data, setData] = useState([]);
   const [input, setInput] = useState("");
+  const getData = async () => {
+    const res = await axios.get("localhost:3001/mahasiswa");
+    console.log(res);
+    setData(res.data.result);
+  };
   useEffect(() => {
     console.log("This will run whenever the App component renders!");
-  }, []);
+    getData();
+  }, [data]);
   useEffect(() => {
     console.log("This will also run whenever the App component renders!");
   }, []);
@@ -30,10 +37,13 @@ export default () => {
       >
         simpan
       </button>
+
       {data.map((it, i) => {
         return (
           <tr>
-            <td>{it}</td>
+            <td>{it.nim}</td>
+            <td>{it.nama}</td>
+            <td>{it.jurusan}</td>
             <td>
               <button
                 onChange={() => {

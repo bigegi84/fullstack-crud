@@ -20,7 +20,10 @@ const main = async () => {
   await mahasiswa.create({ nim: "2", nama: "bapak budi", jurusan: "mesin" });
 
   const express = require("express");
+  const cors = require("cors");
   const app = express();
+  app.use(express.json());
+  app.use(cors());
   const port = 3001;
 
   // create
