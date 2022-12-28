@@ -39,8 +39,14 @@ const main = async () => {
   });
 
   // update
-  app.put("/mahasiswa", async (req, res) => {
-    const data = await mahasiswa.findAll();
+  app.put("/mahasiswa/:nim", async (req, res) => {
+    const data = await mahasiswa.findOne({ where: { nim: req.params.nim } });
+    if (data) {
+      data.nim = req.body.nim;
+      data.nama = req.body.nama;
+      data.jurusan = req.body.jurusan;
+      await data.save();
+    }
     res.send({ result: data });
   });
 
