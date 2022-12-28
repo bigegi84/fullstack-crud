@@ -6,23 +6,23 @@ export default () => {
   const [nama, setNama] = useState("");
   const [jurusan, setJurusan] = useState("");
   const createData = async (data) => {
-    const res = await axios.post("localhost:3001/mahasiswa", data);
+    const res = await axios.post("http://localhost:3001/mahasiswa", data);
     console.log(res);
     setData(res.data.result);
     readData();
   };
   const readData = async () => {
-    const res = await axios.get("localhost:3001/mahasiswa");
+    const res = await axios.get("http://localhost:3001/mahasiswa");
     console.log(res);
     setData(res.data.result);
   };
   const updateData = async (data) => {
-    const res = await axios.post("localhost:3001/mahasiswa", data);
+    const res = await axios.post("http://localhost:3001/mahasiswa", data);
     console.log(res);
     setData(res.data.result);
   };
   const deleteData = async (nim) => {
-    const res = await axios.delete("localhost:3001/mahasiswa/" + nim);
+    const res = await axios.delete("http://localhost:3001/mahasiswa/" + nim);
     console.log(res);
     await readData();
   };
