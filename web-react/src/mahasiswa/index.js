@@ -36,13 +36,23 @@ export default () => {
   const onSimpan = () => {};
   return (
     <div>
-      <input type={"text"} placeholder="nim" value={nim} onChange={setNim} />
-      <input type={"text"} placeholder="nama" value={nama} onChange={setNama} />
+      <input
+        type={"text"}
+        placeholder="nim"
+        value={nim}
+        onInput={(e) => setNim(e.target.value)}
+      />
+      <input
+        type={"text"}
+        placeholder="nama"
+        value={nama}
+        onInput={(e) => setNama(e.target.value)}
+      />
       <input
         type={"text"}
         placeholder="jurusan"
-        value={setJurusan}
-        onChange={setJurusan}
+        value={jurusan}
+        onInput={(e) => setJurusan(e.target.value)}
       />
       <button
         onClick={async () => {
@@ -64,7 +74,7 @@ export default () => {
             <td>{it.jurusan}</td>
             <td>
               <button
-                onChange={async () => {
+                onClick={async () => {
                   await deleteData(it.nim);
                 }}
               >
