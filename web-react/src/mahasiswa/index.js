@@ -8,7 +8,6 @@ export default () => {
   const createData = async (data) => {
     const res = await axios.post("http://localhost:3001/mahasiswa", data);
     console.log(res);
-    setData(res.data.result);
     readData();
   };
   const readData = async () => {
