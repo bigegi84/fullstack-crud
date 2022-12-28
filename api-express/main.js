@@ -28,7 +28,7 @@ const main = async () => {
 
   // create
   app.post("/mahasiswa", async (req, res) => {
-    const data = await mahasiswa.findCreateFind(req.body);
+    const data = await mahasiswa.create(req.body);
     res.send({ result: data });
   });
 
