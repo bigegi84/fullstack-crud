@@ -14,36 +14,42 @@ const mahasiswa = sequelize.define(
   }
 );
 
-sequelize.sync();
+const main = async () => {
+  await sequelize.sync(); // ini buat dari kodingan ke db
+  await mahasiswa.create({ nim: "1", nama: "budi", jurusan: "komputer" });
+  await mahasiswa.create({ nim: "2", nama: "bapak budi", jurusan: "mesin" });
 
-const express = require("express");
-const app = express();
-const port = 3001;
+  const express = require("express");
+  const app = express();
+  const port = 3001;
 
-// create
-app.post("/mahasiswa", async (req, res) => {
-  const data = await mahasiswa.findCreateFind(req.body);
-  res.send({ result: data });
-});
+  // create
+  app.post("/mahasiswa", async (req, res) => {
+    const data = await mahasiswa.findCreateFind(req.body);
+    res.send({ result: data });
+  });
 
-// read
-app.get("/mahasiswa", async (req, res) => {
-  const data = await mahasiswa.findAll();
-  res.send({ result: data });
-});
+  // read
+  app.get("/mahasiswa", async (req, res) => {
+    const data = await mahasiswa.findAll();
+    res.send({ result: data });
+  });
 
-// update
-app.put("/mahasiswa", async (req, res) => {
-  const data = await mahasiswa.findAll();
-  res.send({ result: data });
-});
+  // update
+  app.put("/mahasiswa", async (req, res) => {
+    const data = await mahasiswa.findAll();
+    res.send({ result: data });
+  });
 
-// delete
-app.delete("/mahasiswa", async (req, res) => {
-  const data = await mahasiswa.destroy(req.query.id);
-  res.send({ result: data });
-});
+  // delete
+  app.delete("/mahasiswa", async (req, res) => {
+    const data = await mahasiswa.destroy(req.query.id);
+    res.send({ result: data });
+  });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+  });
+};
+
+main();
