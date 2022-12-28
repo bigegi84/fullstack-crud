@@ -9,6 +9,7 @@ export default () => {
     const res = await axios.post("localhost:3001/mahasiswa", data);
     console.log(res);
     setData(res.data.result);
+    readData();
   };
   const readData = async () => {
     const res = await axios.get("localhost:3001/mahasiswa");
@@ -20,10 +21,10 @@ export default () => {
     console.log(res);
     setData(res.data.result);
   };
-  const deleteData = async (data) => {
-    const res = await axios.post("localhost:3001/mahasiswa", data);
+  const deleteData = async (nim) => {
+    const res = await axios.delete("localhost:3001/mahasiswa/" + nim);
     console.log(res);
-    setData(res.data.result);
+    await readData();
   };
 
   useEffect(() => {
@@ -64,11 +65,8 @@ export default () => {
             <td>{it.jurusan}</td>
             <td>
               <button
-                onChange={() => {
-                  const newData = [...data];
-                  newData.splice(i, 1);
-                  setData(newData);
-                  setInput("");
+                onChange={async () => {
+                  await deleteData(it.nim);
                 }}
               >
                 hapus
