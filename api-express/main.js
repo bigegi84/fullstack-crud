@@ -51,9 +51,14 @@ const main = async () => {
   });
 
   // delete
-  app.delete("/mahasiswa", async (req, res) => {
-    const data = await mahasiswa.destroy(req.query.id);
-    res.send({ result: data });
+  app.delete("/mahasiswa/:nim", async (req, res) => {
+    const data = await mahasiswa.findOne({ where: { nim: req.params.nim } });
+    if (data) {
+      await data.destroy();
+      res.send({ result: "data deleted" });
+    } else {
+      res.send({ result: "data not found" });
+    }
   });
 
   app.listen(port, () => {
