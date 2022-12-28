@@ -2,15 +2,33 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 export default () => {
   const [data, setData] = useState([]);
-  const [input, setInput] = useState("");
-  const getData = async () => {
+  const [nim, setNim] = useState("");
+  const [nama, setNama] = useState("");
+  const [jurusan, setJurusan] = useState("");
+  const createData = async (data) => {
+    const res = await axios.post("localhost:3001/mahasiswa", data);
+    console.log(res);
+    setData(res.data.result);
+  };
+  const readData = async () => {
     const res = await axios.get("localhost:3001/mahasiswa");
     console.log(res);
     setData(res.data.result);
   };
+  const updateData = async (data) => {
+    const res = await axios.post("localhost:3001/mahasiswa", data);
+    console.log(res);
+    setData(res.data.result);
+  };
+  const deleteData = async (data) => {
+    const res = await axios.post("localhost:3001/mahasiswa", data);
+    console.log(res);
+    setData(res.data.result);
+  };
+
   useEffect(() => {
     console.log("This will run whenever the App component renders!");
-    getData();
+    readData();
   }, [data]);
   useEffect(() => {
     console.log("This will also run whenever the App component renders!");
@@ -18,21 +36,21 @@ export default () => {
   const onSimpan = () => {};
   return (
     <div>
+      <input type={"text"} placeholder="nim" value={nim} onChange={setNim} />
+      <input type={"text"} placeholder="nama" value={nama} onChange={setNama} />
       <input
         type={"text"}
-        value={input}
-        onChange={(e) => {
-          // console.log(e);
-          console.log("masuk onchange " + e.target.value);
-          setInput(e.target.value);
-        }}
+        placeholder="jurusan"
+        value={setJurusan}
+        onChange={setJurusan}
       />
       <button
-        onClick={() => {
-          const newData = [...data];
-          newData.push(input);
-          setData(newData);
-          setInput("");
+        onClick={async () => {
+          const data = { nim, nama, jurusan };
+          await createData(data);
+          setNim("");
+          setNama("");
+          setJurusan("");
         }}
       >
         simpan
