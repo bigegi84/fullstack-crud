@@ -29,7 +29,7 @@ export default () => {
   useEffect(() => {
     console.log("This will run whenever the App component renders!");
     readData();
-  }, [data]);
+  }, []);
   useEffect(() => {
     console.log("This will also run whenever the App component renders!");
   }, []);
